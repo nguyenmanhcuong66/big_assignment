@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1747762481 source:e:\codeblock\bigass\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<iostream>
+	<string>
+	<ctime>
+	<cstdlib>
+
