@@ -92,6 +92,7 @@ int main(int argc, char* argv[]) {
     Uint32  battu_Time = 0;
 
     Uint32 Item_lastime = SDL_GetTicks();
+    Uint32  pipe_last_change = SDL_GetTicks();
 
     bool tangtoc = false;
 
@@ -223,6 +224,23 @@ int main(int argc, char* argv[]) {
             SDL_SetTextureAlphaMod(bird.texture, 128);
         else
             SDL_SetTextureAlphaMod(bird.texture, 255);
+
+        if (currentTick - pipe_last_change >= 10000) {
+            int pipeIndex = rand() % So_pipe;
+            bool ongtren_change = rand() % 2;
+
+            if (ongtren_change) {
+                pipes[pipeIndex].ongtren.h = Ccao_MH / 2;
+                pipes[pipeIndex].ongduoi.y = pipes[pipeIndex].ongtren.h + pipes[pipeIndex].gap;
+                pipes[pipeIndex].ongduoi.h = Ccao_MH - pipes[pipeIndex].ongduoi.y;
+            } else {
+                pipes[pipeIndex].ongduoi.y = Ccao_MH / 2;
+                pipes[pipeIndex].ongduoi.h = Ccao_MH - pipes[pipeIndex].ongduoi.y;
+                pipes[pipeIndex].ongtren.h = pipes[pipeIndex].ongduoi.y - pipes[pipeIndex].gap;
+            }
+
+            pipe_last_change = currentTick;
+        }
 
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, bgTexture, NULL, NULL);
